@@ -1,0 +1,23 @@
+{
+  "name": "naturalHealthStack",
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bower": "*",
+    "install": "^1.0.4",
+    "bootstrap": "^3.3.6",
+    "react": "^0.14.7",
+    "jquery": "^2.2.0",
+    "babel": "*"
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>The Natural Health Stack</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <nav>
+        <!-- nav todo -->
+    </nav>
+    <header>
+        <div class="bg"><div class="bg-inner"></div></div>
+        <div class="text">
+            <h1>The Natural Health Stack</h1>
+            <h2>HUNDREDS OF REMEDIES USED BY 10,000+ TOP NATURAL HEALTH ADVOCATES</h2>
+        </div>
+    </header>
+    <div class="container">
+      <section class="filter">
+        <a class="dropdown" href="">
+            All Categories
+        </a>
+        <a class="add" href="">
+            ADD A REMEDY
+        </a>
+      </section>
+      <section id="items">
+          
+      </section>
+    </div>
+    <!-- scripts -->
+    <script src="{{ url_for('static', filename='bower_components/react/react.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/react/react-dom.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/babel/browser.min.js') }}"></script>
+    <script type="text/babel">
+
+      /*** @jsx React.DOM */
+
+      var VotedItems = React.createClass({
+        render: function() {
+            return <div>Hello {this.props.name}</div>;
+        }
+      });
+
+      ReactDOM.render(<VotedItems name="John" />,
+        document.getElementById('items')
+      );
+    </script>
+  </body>
+</html>
