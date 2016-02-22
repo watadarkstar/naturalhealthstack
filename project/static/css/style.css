@@ -4,8 +4,8 @@ body, html {
     height: 100%;
 }
 
-a:hover {
-      text-decoration: none;
+a:hover, a {
+      text-decoration: none !important;
 }
 
 body {
@@ -113,8 +113,24 @@ header h2 {
     float: right;
 }
 
+.row {
+    -moz-column-width: 300px;
+    -webkit-column-width: 300px;
+    -moz-column-gap: 1em;
+    -webkit-column-gap:1em;
+    margin: 0;
+}
+
 .items {
+    display: inline-block;
+    min-width: 300px;
     padding-bottom: 30px;
+}
+
+@media (max-width: 800px) {
+    .items {
+        width: 100%;
+    }
 }
 
 .items-inner {
@@ -123,6 +139,10 @@ header h2 {
     border-radius: 4px;
     box-shadow: 0 2px 2px rgba(0,0,0,0.03);
     padding: 0;
+}
+
+.items:nth-child(4) {
+    clear: both;
 }
 
 .items h1 {
@@ -142,6 +162,7 @@ header h2 {
 }
 
 .items li {
+    position: relative;
     list-style: none;
 }
 
@@ -171,4 +192,61 @@ header h2 {
     top: 1px;
     margin-right: 15px;
     margin-left: 2px;
+}
+
+.items .vote {
+    position: absolute;
+    height: 50px;
+    width: 40px;
+    text-align: center;
+    padding-top: 15px;
+    top: 0;
+    right: 0;
+    font-size: 10px;
+    color: #AAA;
+}
+
+.vote .votes {
+    top: 5px;
+    position: relative;
+}
+
+.vote .chevron-up {
+    border-style: solid;
+    border-width: 0.1em 0.1em 0 0;
+    content: '';
+    display: inline-block;
+    height: 0.7em;
+    right: 17px;
+    position: absolute;
+    top: 16px;
+    transform: rotate(-45deg);
+    vertical-align: top;
+    width: 0.7em;
+    border-color: #ccc;
+}
+
+.vote:hover {
+    cursor: pointer;
+    font-weight: bold;
+    color: #999;
+}
+
+.vote:hover .chevron-up {
+     border-width: 0.25em 0.25em 0 0;
+     border-color: #999;
+}
+
+footer {
+    text-align: center;
+    margin-top: 80px;
+    padding: 40px 40px 116px;
+    margin: 40px 40px 0px;
+    font-size: 18px;
+    font-weight: 100;
+    border-top: 1px dashed #242629;
+}
+
+.highlight {
+    background-color: #FFFDCC;
 }

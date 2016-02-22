@@ -22,26 +22,33 @@
         </div>
     </header>
     <div class="container">
-      <section class="filter">
-        <a class="dropdown" href="">
-            All Categories
-        </a>
-        <a class="add" href="http://goo.gl/forms/tD66R4LNHO" target="_blank">
-            ADD A REMEDY
-        </a>
-      </section>
-      <section id="items">
-          
-      </section>
+        <section class="filter">
+            <a class="dropdown">
+                All Categories
+            </a>
+            <a class="add" href="http://goo.gl/forms/tD66R4LNHO" target="_blank">
+                ADD A REMEDY
+            </a>
+        </section>
+        <section id="items" class="clearfix"></section>
+        <footer class="clearfix">
+            <p>
+                The Natural Health Stack <span class="highlight">makes it easy to find the best remedies for a variety of conditions</span>. Keeping up with new remedies (not to mention finding the right ones for you!) can be challenging.
+                <br/><br/>
+                This list covers all the remedies a patient might find useful when fighting many difficulties or diseases, from fighting cancer to mental health issues like anxiety or depression.
+                <br/><br/>
+                We tried to be thorough, but we may have missed something. If you use a remedy that's not listed here, <a href="http://goo.gl/forms/tD66R4LNHO" target="_blank">please let us know</a>!
+            </p>
+        </footer>
     </div>
     <!-- scripts -->
     <!-- Place this tag right after the last button or just before your close body tag. -->
-<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+    <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+    <!--<script src="{{ url_for('static', filename='bower_components/masonry/dist/masonry.pkgd.js') }}"></script>-->
     <script src="{{ url_for('static', filename='bower_components/react/react.js') }}"></script>
     <script src="{{ url_for('static', filename='bower_components/react/react-dom.js') }}"></script>
     <script src="{{ url_for('static', filename='bower_components/babel/browser.min.js') }}"></script>
     <script type="text/babel">
-    
         var data = [
             {
                 id: 1, 
@@ -59,15 +66,17 @@
                 title: "Surgery", 
                 items: [
                     {
-                        id: 1,
-                        text: "Affirming Tapes",
-                        link: "http://www.drweil.com/drw/u/id/QAA400056"
-                    },
-                    {
-                        id: 2, 
+                        id: 1, 
                         text: "Vitamin C",
                         icon: "https://getvitaminc.com/_themes/vitamin-c/img/c-icon.png",
-                        link: "http://www.drweil.com/drw/u/ART02811/facts-on-vitamin-c"
+                        link: "http://www.drweil.com/drw/u/ART02811/facts-on-vitamin-c",
+                        votes: 169
+                    },
+                    {
+                        id: 2,
+                        text: "Affirming Tapes",
+                        link: "http://www.drweil.com/drw/u/id/QAA400056",
+                        icon: "http://icons.iconarchive.com/icons/iconsmind/outline/16/Headphones-icon.png"
                     }
                 ]
             },
@@ -88,10 +97,65 @@
                         id: 1, text: "Vitamin D"
                     }
                 ]
+            },
+            {
+                id: 5, 
+                title: "Cancer", 
+                items: [
+                    {
+                        id: 1, text: "Vitamin D"
+                    }
+                ]
+            },
+            {
+                id: 6, 
+                title: "Cancer", 
+                items: [
+                    {
+                        id: 1, text: "Vitamin D"
+                    }
+                ]
+            },
+            {
+                id: 7, 
+                title: "Cancer", 
+                items: [
+                    {
+                        id: 1, text: "Vitamin D"
+                    }
+                ]
+            },
+            {
+                id: 8, 
+                title: "Cancer", 
+                items: [
+                    {
+                        id: 1, text: "Vitamin D"
+                    }
+                ]
             }
         ];
 
         /*** @jsx React.DOM */
+        var Vote = React.createClass({
+            getInitialState: function() {
+                return {votes: this.props.votes ? this.props.votes : 0, voted: false};
+            },
+            handleClick: function(event) {
+                if (!this.state.voted){
+                    this.setState({votes: this.state.votes + 1, voted: true});
+                }
+            },
+            render: function() {
+                return (
+                    <div onClick={this.handleClick} className="vote">
+                        <span className="chevron-up"></span>
+                        <span className="votes">{this.state.votes}</span>
+                    </div>
+                );
+            }
+        });
+        
         var VotedItem = React.createClass({
             render: function() {
                 var iconStyle = this.props.data.icon ? {
@@ -99,12 +163,14 @@
                 } : {
                     backgroundImage: 'url(http://c.dryicons.com/images/icon_sets/medical_icons/png/128x128/medicine.png)'
                 };
+                
                 return (
                     <li>
-                        <a href="">
+                        <a href={this.props.data.link} target="_blank">
                             <span className="icon" style={iconStyle}></span>
                             {this.props.data.text}
                         </a>
+                        <Vote votes={this.props.data.votes}/>
                     </li>
                 );
             }
@@ -113,7 +179,7 @@
         var VotedItems = React.createClass({
             render: function() {
                 return (
-                    <article className="clearfix items col-md-4">
+                    <article className="items">
                         <div className="items-inner">
                             <h1>{this.props.title}</h1>
                             <ul>
@@ -130,7 +196,7 @@
         var VotedItemsWrapper = React.createClass({
            render: function() {
                 return (
-                    <section>
+                    <section className="row">
                         {this.props.data.map(function(result) {
                             return <VotedItems key={result.id} title={result.title} data={result.items}/>;
                         })}
