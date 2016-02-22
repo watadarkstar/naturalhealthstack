@@ -45,6 +45,7 @@
     <!-- Place this tag right after the last button or just before your close body tag. -->
     <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
     <!--<script src="{{ url_for('static', filename='bower_components/masonry/dist/masonry.pkgd.js') }}"></script>-->
+    <script src="{{ url_for('static', filename='bower_components/underscore/underscore-min.js') }}"></script>
     <script src="{{ url_for('static', filename='bower_components/react/react.js') }}"></script>
     <script src="{{ url_for('static', filename='bower_components/react/react-dom.js') }}"></script>
     <script src="{{ url_for('static', filename='bower_components/babel/browser.min.js') }}"></script>
@@ -52,12 +53,26 @@
         var data = [
             {
                 id: 1, 
-                title: "Cancer", 
+                title: "Anxiety", 
                 items: [
                     {
                         id: 1, 
-                        text: "Vitamin C",
-                        link: "http://www.drweil.com/drw/u/ART02811/facts-on-vitamin-c"
+                        text: "Exercise",
+                        link: "http://www.amazon.ca/Healthy-Brain-Happy-Life-Everything/dp/0062366785",
+                        icon: "http://icons.iconarchive.com/icons/icons8/android/16/Sports-Exercise-icon.png",
+                        votes: 101
+                    },
+                    {
+                        id: 2, 
+                        text: "Kava",
+                        link: "http://bebrainfit.com/kava-for-anxiety/",
+                        icon: "http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/cup-tea-icon.png"
+                    },
+                    {
+                        id: 3, 
+                        text: "5 Minute Journal",
+                        link: "http://www.fiveminutejournal.com/",
+                        icon: "http://icons.iconarchive.com/icons/mattahan/buuf/16/A-Proper-Journal-Icon-icon.png"
                     }
                 ]
             },
@@ -85,52 +100,30 @@
                 title: "Cancer", 
                 items: [
                     {
-                        id: 1, text: "Vitamin D"
+                        id: 1, 
+                        text: "Vitamin C",
+                        icon: "https://getvitaminc.com/_themes/vitamin-c/img/c-icon.png",
+                        link: "http://www.drweil.com/drw/u/ART02811/facts-on-vitamin-c",
+                        votes: 56
                     }
                 ]
             },
             {
                 id: 4, 
-                title: "Cancer", 
+                title: "Depression", 
                 items: [
                     {
-                        id: 1, text: "Vitamin D"
-                    }
-                ]
-            },
-            {
-                id: 5, 
-                title: "Cancer", 
-                items: [
+                        id: 1, 
+                        text: "Exercise",
+                        link: "http://www.amazon.ca/Healthy-Brain-Happy-Life-Everything/dp/0062366785",
+                        icon: "http://icons.iconarchive.com/icons/icons8/android/16/Sports-Exercise-icon.png"
+                    },
                     {
-                        id: 1, text: "Vitamin D"
-                    }
-                ]
-            },
-            {
-                id: 6, 
-                title: "Cancer", 
-                items: [
-                    {
-                        id: 1, text: "Vitamin D"
-                    }
-                ]
-            },
-            {
-                id: 7, 
-                title: "Cancer", 
-                items: [
-                    {
-                        id: 1, text: "Vitamin D"
-                    }
-                ]
-            },
-            {
-                id: 8, 
-                title: "Cancer", 
-                items: [
-                    {
-                        id: 1, text: "Vitamin D"
+                        id: 2, 
+                        text: "5 Minute Journal",
+                        link: "http://www.fiveminutejournal.com/",
+                        icon: "http://icons.iconarchive.com/icons/mattahan/buuf/16/A-Proper-Journal-Icon-icon.png",
+                        votes: 55
                     }
                 ]
             }
@@ -178,12 +171,13 @@
         
         var VotedItems = React.createClass({
             render: function() {
+                var sorted = _.sortBy(this.props.data, function(o) { return o.votes; });
                 return (
                     <article className="items">
                         <div className="items-inner">
                             <h1>{this.props.title}</h1>
                             <ul>
-                                {this.props.data.map(function(result) {
+                                {sorted.map(function(result) {
                                     return <VotedItem key={result.id} data={result}/>;
                                 })}
                             </ul>
@@ -195,9 +189,10 @@
         
         var VotedItemsWrapper = React.createClass({
            render: function() {
+               var sorted = _.sortBy(this.props.data, function(o) { return o.title; });
                 return (
                     <section className="row">
-                        {this.props.data.map(function(result) {
+                        {sorted.map(function(result) {
                             return <VotedItems key={result.id} title={result.title} data={result.items}/>;
                         })}
                     </section>
