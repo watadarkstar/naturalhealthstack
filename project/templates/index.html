@@ -11,7 +11,8 @@
   </head>
   <body>
     <nav>
-        <!-- nav todo -->
+        <!-- Place this tag where you want the button to render. -->
+        <a class="github-button" href="https://github.com/watadarkstar" data-style="mega" data-count-href="/watadarkstar/followers" data-count-api="/users/ntkme#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @watadarkstar on GitHub">Follow @watadarkstar</a>
     </nav>
     <header>
         <div class="bg"><div class="bg-inner"></div></div>
@@ -25,7 +26,7 @@
         <a class="dropdown" href="">
             All Categories
         </a>
-        <a class="add" href="">
+        <a class="add" href="http://goo.gl/forms/tD66R4LNHO" target="_blank">
             ADD A REMEDY
         </a>
       </section>
@@ -34,22 +35,113 @@
       </section>
     </div>
     <!-- scripts -->
+    <!-- Place this tag right after the last button or just before your close body tag. -->
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
     <script src="{{ url_for('static', filename='bower_components/react/react.js') }}"></script>
     <script src="{{ url_for('static', filename='bower_components/react/react-dom.js') }}"></script>
     <script src="{{ url_for('static', filename='bower_components/babel/browser.min.js') }}"></script>
     <script type="text/babel">
+    
+        var data = [
+            {
+                id: 1, 
+                title: "Cancer", 
+                items: [
+                    {
+                        id: 1, 
+                        text: "Vitamin C",
+                        link: "http://www.drweil.com/drw/u/ART02811/facts-on-vitamin-c"
+                    }
+                ]
+            },
+            {
+                id: 2, 
+                title: "Surgery", 
+                items: [
+                    {
+                        id: 1,
+                        text: "Affirming Tapes",
+                        link: "http://www.drweil.com/drw/u/id/QAA400056"
+                    },
+                    {
+                        id: 2, 
+                        text: "Vitamin C",
+                        icon: "https://getvitaminc.com/_themes/vitamin-c/img/c-icon.png",
+                        link: "http://www.drweil.com/drw/u/ART02811/facts-on-vitamin-c"
+                    }
+                ]
+            },
+            {
+                id: 3, 
+                title: "Cancer", 
+                items: [
+                    {
+                        id: 1, text: "Vitamin D"
+                    }
+                ]
+            },
+            {
+                id: 4, 
+                title: "Cancer", 
+                items: [
+                    {
+                        id: 1, text: "Vitamin D"
+                    }
+                ]
+            }
+        ];
 
-      /*** @jsx React.DOM */
-
-      var VotedItems = React.createClass({
-        render: function() {
-            return <div>Hello {this.props.name}</div>;
-        }
-      });
-
-      ReactDOM.render(<VotedItems name="John" />,
-        document.getElementById('items')
-      );
+        /*** @jsx React.DOM */
+        var VotedItem = React.createClass({
+            render: function() {
+                var iconStyle = this.props.data.icon ? {
+                    backgroundImage: 'url('+this.props.data.icon+')',
+                } : {
+                    backgroundImage: 'url(http://c.dryicons.com/images/icon_sets/medical_icons/png/128x128/medicine.png)'
+                };
+                return (
+                    <li>
+                        <a href="">
+                            <span className="icon" style={iconStyle}></span>
+                            {this.props.data.text}
+                        </a>
+                    </li>
+                );
+            }
+        });
+        
+        var VotedItems = React.createClass({
+            render: function() {
+                return (
+                    <article className="clearfix items col-md-4">
+                        <div className="items-inner">
+                            <h1>{this.props.title}</h1>
+                            <ul>
+                                {this.props.data.map(function(result) {
+                                    return <VotedItem key={result.id} data={result}/>;
+                                })}
+                            </ul>
+                        </div>
+                    </article>
+                );
+            }
+        });
+        
+        var VotedItemsWrapper = React.createClass({
+           render: function() {
+                return (
+                    <section>
+                        {this.props.data.map(function(result) {
+                            return <VotedItems key={result.id} title={result.title} data={result.items}/>;
+                        })}
+                    </section>
+                );
+           } 
+        });
+        
+        ReactDOM.render(<VotedItemsWrapper data={data} />,
+            document.getElementById('items')
+        );
     </script>
   </body>
 </html>
